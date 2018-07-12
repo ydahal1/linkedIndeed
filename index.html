@@ -1,22 +1,100 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 	<title>LinkedIndeed</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <!-- <script type="text/javascript"></script> -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>   
-    <script src="assets/javascript/app.js" ></script>
-    <link rel="stylesheet" href="assets/css/style.css">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"><!-- Optional theme -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet"><!-- Latest compiled and minified JavaScript -->
+
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+	<script src="assets/javascript/app.js"></script>
+	<link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body>
-
-
-
-    <script src="assets/javascript/app.js" ></script>
-    <script src="assets/javascript/config.js" ></script>
+	<nav class="navbar" id="navigationBar">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button class="navbar-toggle" data-target="#nav-bar" data-toggle="collapse" id="navBar-toggle-btn" type="button"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <a class="navbar-brand brandName"><span id="brandName">LinkedIndeed</span></a>
+			</div>
+			<div class="collapse navbar-collapse" id="nav-bar">
+				<ul class="nav navbar-nav navbar-right">
+					<li>&nbsp;<button class="btn  btn-primary navButtons" id="home-button"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</button></li>
+					<li>&nbsp;<button class="btn  btn-primary navButtons" id="login-button">
+					<script type="in/Login"></script></button></li>
+					<li>&nbsp;<button class="btn  btn-primary navButtons" id="logout">&nbsp;Logout&nbsp;&nbsp;</button></li>
+					<li>&nbsp;<button class="btn  btn-primary navButtons" id="briefcase" onclick="notification();"><span class="glyphicon glyphicon-briefcase"></span><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="notification"></span></b></button></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+		<div class="panel panel-body" id="user-info">
+			<p><b>Name:</b> <span id="name"></span></p>
+			<p><span id="name"><b>Email-Address:</b><span id="email"></span></span></p>
+			<p><b>Industry:</b><span id="industry"></span></p>
+			<p><b>Location:</b><span id="location"></span></p>
+			<p><b>Job Search Keywords:</b><span id="search-keywords"></span></p>
+			<p><b>Summary:</b> <span id="summary"></span></p>
+		</div>
+	</div>
+	<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+		<div class="panel panel-body" id="user-image-div"><img id="user-image" src=""></div>
+	</div>
+	<div class="panel panel-body">
+		<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 userinput">
+			<input class="form-control input-sm" id="preferedLocations" placeholder="location" type="text">
+		</div>
+		<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 userinput">
+			<input class="form-control input-sm" id="inputSkills" placeholder="Key word" type="text">
+		</div>
+		<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 form-group userinput">
+			<select class="form-control input-sm" id="selectJobType">
+				<option disabled id="defaultSelection" selected="true">Select One</option>
+				<option disabled id="bothJobs">Both</option>
+				<option id="governmentJobs">Government Jobs</option>
+				<option id="privateSectorJobs">Github Jobs</option>
+			</select>
+		</div>
+		<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 form-group userinput-btn">
+			<button class="btn-control btn btn-success btn-sm" id="submitUserInput" type="button">Submit</button>
+		</div>
+	</div>
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover" id="table">
+			<thead class="thead-dark">
+				<tr class="thead-dark thead">
+					<td style="width: 5.66%">Actions</td>
+					<td style="width: 17.66%">Date</td>
+					<td style="width: 10.66%">Location</td>
+					<td style="width: 24.66%">Title</td>
+					<td style="width: 20.66%">Description</td>
+					<td style="width: 10.66%">Type</td>
+					<td style="width: 10.66%">link</td>
+				</tr>
+			</thead>
+			<tbody id="tableBody"></tbody>
+		</table>
+	</div>
+	<script src="assets/javascript/app.js"></script> 
+	<script src="https://platform.linkedin.com/in.js" type="text/javascript">
+	           api_key: 77uwyu64kulxbc
+	           authorize: true
+    </script>
+    <script>
+      var config = {
+        apiKey: "AIzaSyAgVO8Mm76_hyDvnzl7Pt0MHzSf-NYa2-s",
+        authDomain: "linkedindeed-daf51.firebaseapp.com",
+        databaseURL: "https://linkedindeed-daf51.firebaseio.com",
+        projectId: "linkedindeed-daf51",
+        storageBucket: "linkedindeed-daf51.appspot.com",
+        messagingSenderId: "1069346080221"
+    };
+    firebase.initializeApp(config);
+    </script>
+	<footer>
+        
+    </footer>
 </body>
+</html>

@@ -1,0 +1,176 @@
+/* Navigation bar */
+#navigationBar{
+    background-color: #23527C;
+    width: 100%;
+}
+
+/* navigation bar collapese */
+#nav-bar{
+    margin-top: 0px;
+    background-color: #23527C;
+}
+
+/* navigation bar toggle button */
+#navBar-toggle-btn{
+    background-color: white;
+}
+
+/* toggle buton bar color */
+.icon-bar{
+    background-color: black;
+}
+
+/* navigation buttons */
+.navButtons{
+    /* border: 1px solid white; */
+    text-align: center;
+}
+
+/* brand name  */
+#brandName{
+    font-size: 30px;
+    color:white;
+    padding: 1px;
+    margin-left: -10px;
+}
+
+/* spacing between the menu item when the screen is small or xs */
+li{
+    margin: 5px 0;
+  }
+
+
+  /* ------------------- */
+
+
+/* user information panel */
+#user-info{
+    margin-top: 10px !important;
+    height: 160px;
+    border: 1px solid black;
+    margin-left: 0px;
+    overflow: auto;
+    padding-top: 0px;
+    /* margin-top : px; */
+    /* line-height: 14px; */
+    padding-top: 10px;
+
+}
+
+/* user information */
+
+
+/* user image panel  */
+#user-image-div{
+    margin-top: 10px !important;
+    height: 160px;
+    border: 1px solid white;
+    /* margin-left: 10px; */
+    /* overflow: auto; */
+    padding: 0px;
+    /* border: 1px solid black; */
+    /* text-align: center; */
+    
+
+}
+/* div holding all the user input fields */
+#userInputDiv{
+    height: 49px;
+    margin-top: -60px;
+    margin-left: 8px;
+}
+
+/* increasing spacing between the input boxes */
+#secondInputDiv{
+    margin-left: 105px;
+}
+
+#thirdInputDiv{
+    margin-left: 104px;
+}
+
+/* Panel for displaying table */
+#matchedJobDisplayPanel{
+    border: 1px solid black;
+    margin-right: 2500px;
+    margin-left: 20px;
+    height: 600px;
+    max-width: 96%;
+    /* background-color : red; */
+}
+
+.table-responsive{
+    text-align: center;
+}
+
+
+
+
+/* for job displaying table */
+#table td{
+    margin: 5px;
+    margin-left: 15px;
+    max-width: 98%;
+    /* text-align: center; */
+    border: 2px solid black;
+
+}
+
+
+/* Put border in every td */
+/* #table td{
+    border: 1px solid black;
+/* } */
+
+
+.thead td{
+    background: black;
+    color: white;
+    border : 1px solid white !important;
+    height: 40px;
+} 
+p{
+    height: 10px;
+}
+.CellComment{
+    display: none;
+    position: absolute;
+    overflow: auto;
+    background: #C8C8C8;
+    border: 1px solid #000;
+    border-radius: 4px;
+    margin-left: 28px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1000;
+    width:400px;
+    height:500px;
+    
+    /* essential */
+     text-overflow: ellipsis;
+     /*width: 200px;*/
+     white-space: nowrap;
+     /*overflow: hidden;*/
+     
+     /* for good looks */
+     padding: 10px;
+  }
+  
+  .CellWithComment:hover span.CellComment{
+    display:block;
+  }
+
+  .userinput{
+      text-align: center;
+      margin-top: 9px;
+  }
+  .userinput-btn{
+      text-align: left;
+      margin-top: 9px;
+
+  }
+
+
+/* .form-inline > * {
+    margin: 0px !important;
+} */
