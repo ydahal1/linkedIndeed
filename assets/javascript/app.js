@@ -355,6 +355,6 @@ function displayForNotLoggedIn(){
     console.log("general info here");
     url_gitHub = "https://jobs.github.com/positions.json?&page=1";
     url_govt = "https://jobs.search.gov/jobs/search.json?query=&size=100";
-    pullGovernmentJobs();
+    pullGitHubJobs();
     pullGovernmentJobs();
 }

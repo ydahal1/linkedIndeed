@@ -4,12 +4,6 @@
     width: 100%;
 }
 
-#top-nav{
-    overflow: hidden;
-}
-
-
-
 /* navigation bar collapese */
 #nav-bar{
     margin-top: 0px;
@@ -123,7 +117,7 @@ li{
 
 }
 
-
+td > div { overflow-y:auto;} 
 /* Put border in every td */
 /* #table td{
     border: 1px solid black;
