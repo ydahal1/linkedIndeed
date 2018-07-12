@@ -255,6 +255,10 @@ function getProfileData() {
     $("#logOutList").css("display", "inline");
     $("#briefcaseList").css("display", "inline");
     $("#loginList").css("display", "none");
+    $("#page-2").css("display", "inline");
+    pullGitHubJobs();
+    pullGovernmentJobs();
+
 
     
 
