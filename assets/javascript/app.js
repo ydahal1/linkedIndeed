@@ -195,7 +195,7 @@ function createUrl() {
 
 
 
-//Saving the listing users are interested
+//Saving the listing users are interested in firebase
 function saveThisListing() {
     $('#tableBody').on('click', '.glyphicon-folder-open', function(e) {
         var savedJobId = e.target.id;
@@ -206,10 +206,11 @@ function saveThisListing() {
         database.ref("Accounts/" + uniqueKey + "/savedJobs/" + savedJobId).set({
             jobId: savedJobId
         });  
-        retrivingSavedItems();
     });
+
 }
 
+//Deletes the listings
 function removeThisListing(){
     $('#tableBody').on('click', '.glyphicon-trash', function(e) {
         var savedJobId = e.target.id;
@@ -217,21 +218,25 @@ function removeThisListing(){
         //This will change format the string the way fire base likes. firebase does not take ., #, etc.
         uniqueKey = emailAddress.split('.').join('@');
        
-        database.ref("Accounts/" + uniqueKey + "/savedJobs/" + savedJobId).remove().then( function (){
-            retrivingSavedItems();
-        });
+        database.ref("Accounts/" + uniqueKey + "/savedJobs/" + savedJobId).remove();
     });
+    // retrivingSavedItems();
 
 }
 
-
+//Updates the notification
 function retrivingSavedItems() {
     var ref = database.ref("Accounts/");
-    ref.child(uniqueKey).on("child_added", function(snap) {
-        var data = snap.val();
-        var saved = Object.keys(data).length;
-        $("#notification").html("&nbsp;" + saved);
-    });
+    // ref.on('value', function(snapshot) {
+        ref.child(uniqueKey).on("child_added", function(snap) {
+            var data = snap.val();
+            var saved = Object.keys(data).length;
+            console.log("type of saved is : " + typeof(saved));
+            $("#notification").html("&nbsp;" + saved);
+        });
+    //  });
+
+   
 }
 
 //Display user profile on the page
@@ -257,10 +262,7 @@ function getProfileData() {
     $("#loginList").css("display", "none");
     $("#page-2").css("display", "inline");
     pullGitHubJobs();
-    pullGovernmentJobs();
-
-
-    
+    // pullGovernmentJobs();
 
     IN.API.Profile("me").fields("first-name", "last-name", "email-address", "picture-url",
         "summary", "specialties", "industry", "positions").result(function(data) {
@@ -357,5 +359,4 @@ $(document).ready(function() {
     //Save the listing when users click save
     saveThisListing();
     removeThisListing();
-
 });
