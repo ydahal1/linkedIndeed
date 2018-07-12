@@ -102,76 +102,51 @@ function displayInTable(datePosted, location, title, type, description, link) {
 }
 
 // function to capture users prefered Locations
-function addPreferedLocations() {
-    $("#btnPreferedLocations").click(function() {
+function addUserInput() {
+    $("#submitUserInput").click(function() {
         event.preventDefault();
-        if ($("#preferedLocations").val() !== "") {
-            preferedLocation = ($("#preferedLocations").val()).trim();
 
-            database.ref("Accounts/" + uniqueKey + "/preferedLocation/").set({
-                preferedLocation: preferedLocation
+        preferedLocation = ($("#preferedLocations").val()).trim();
+        skill = ($("#inputSkills").val()).trim();
+        preferedJobType = $('#selectJobType').val();
+
+        if (preferedLocation != "" && skill !="" & preferedJobType !== "") {
+            database.ref("Accounts/" + uniqueKey + "/userInput/").set({
+                preferedLocation: preferedLocation,
+                skill : skill
             });
 
-            database.ref("Accounts/" + uniqueKey + "/preferedLocation/").once("value", function(snapshot) {
+            database.ref("Accounts/" + uniqueKey + "/userInput/").once("value", function(snapshot) {
                 var preferedLocation = snapshot.val().preferedLocation;
-                console.log("The updated post title is " + preferedLocation);
+                var skill = snapshot.val().skill;
                 $("#location").html("&nbsp;" + preferedLocation);
+                $("#search-keywords").html("&nbsp;" + skill);
             });
 
             $("#preferedLocations").val("");
-        } else {
-            alert("Prefered Location not entered");
-        }
-    });
-}
-
-// Captures users addational skills
-function addSkills() {
-    $("#submitUserInput").click(function() {
-        event.preventDefault();
-        if ($("#inputSkills").val() !== "") {
-            skill = ($("#inputSkills").val()).trim();
-            console.log(skill);
-
-            database.ref("Accounts/" + uniqueKey + "/keywords/").set({
-                keywords: skill
-            });
-
-            database.ref("Accounts/" + uniqueKey + "/keywords/").once("value", function(snapshot) {
-                var keywords = snapshot.val().keywords;
-                console.log("The updated post title is " + keywords);
-                $("#search-keywords").html("&nbsp;" + keywords);
-            });
             $("#inputSkills").val("");
+            $('#selectJobType').val("");
+
+            if (preferedJobType == "Government Jobs") {
+                $("#tableBody").empty();
+                // alert("run govt pull data function");
+                console.log("gov skils:" + skill);
+                console.log("gov loc:" + preferedLocation);
+                console.log(url_govt);
+                createUrl();
+                pullGovernmentJobs();
+            } else if (preferedJobType == "Github Jobs") {
+                $("#tableBody").empty();
+                console.log("gh skils:" + skill);
+                console.log("gh loc:" + preferedLocation);
+    
+                createUrl();
+                console.log(url_gitHub);
+                pullGitHubJobs();
+            }
+
         } else {
-            alert("Skills not entered");
-        }
-    });
-}
-
-// captures user input government or github Jobs
-function preferedJobType() {
-    $("#submitUserInput").click(function() {
-        event.preventDefault();
-        preferedJobType = $('#selectJobType').val();
-        $('#selectJobType').val('');
-        console.log(preferedJobType);
-        if (preferedJobType == "Government Jobs") {
-            $("#tableBody").empty();
-            // alert("run govt pull data function");
-            console.log("gov skils:" + skill);
-            console.log("gov loc:" + preferedLocation);
-            console.log(url_govt);
-            createUrl();
-            pullGovernmentJobs();
-        } else if (preferedJobType == "Github Jobs") {
-            $("#tableBody").empty();
-            console.log("gh skils:" + skill);
-            console.log("gh loc:" + preferedLocation);
-
-            createUrl();
-            console.log(url_gitHub);
-            pullGitHubJobs();
+            console.log("Prefered Location not entered"); // fix this 
         }
     });
 }
@@ -187,6 +162,9 @@ function createUrl() {
         url_gitHub = "https://jobs.github.com/positions.json?&page=1";
         url_govt = "https://jobs.search.gov/jobs/search.json?query=&size=100";
     }
+    console.log("final url is : " + url_gitHub);
+    console.log("final url is : " + url_govt);
+
 }
 
 
@@ -327,9 +305,9 @@ createUrl();
 
 $(document).ready(function() {
     // Event listiners listining to user input like skills, location and job type
-    addPreferedLocations();
-    addSkills()
-    preferedJobType();
+    addUserInput();
+    // addSkills()
+    // preferedJobType();
     // when document is ready, call the start method
     start();
     //Save the listing when users click save
