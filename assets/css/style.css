@@ -4,6 +4,12 @@
     width: 100%;
 }
 
+#top-nav{
+    overflow: hidden;
+}
+
+
+
 /* navigation bar collapese */
 #nav-bar{
     margin-top: 0px;

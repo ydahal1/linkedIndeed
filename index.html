@@ -13,6 +13,7 @@
 	<link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body>
+    <div id="top-nav">
 	<nav class="navbar" id="navigationBar">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -29,22 +30,28 @@
 			</div>
 		</div>
     </nav>
-    <!-- <div class="page-1">
-        <table class="table table-bordered table-hover" id="table">
-             <thead class="thead-dark">
-                <tr class="thead-dark thead">
-                    <td style="width: 17.66%">Date</td>
-                    <td style="width: 10.66%">Location</td>
-                    <td style="width: 24.66%">Title</td>
-                    <td style="width: 20.66%">Description</td>
-                    <td style="width: 10.66%">Type</td>
-                    <td style="width: 10.66%">link</td>
-                </tr>
-            </thead> 
-            <tbody id="tableBody-allusers"></tbody> 
-        </table>
-    </div>  -->
+</div>
 
+<div id="page-1">
+    	<div class="table-responsive">
+                <table class="table table-bordered table-hover" id="table">
+                    <thead class="thead-dark">
+                        <tr class="thead-dark thead">
+                            <td style="width: 17.66%">Date</td>
+                            <td style="width: 10.66%">Location</td>
+                            <td style="width: 24.66%">Title</td>
+                            <td style="width: 20.66%">Description</td>
+                            <td style="width: 10.66%">Type</td>
+                            <td style="width: 10.66%">Apply</td>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody-0"></tbody>
+                </table>
+            </div>
+        </div>
+
+</div>
+ 
     </div>
     <div id="page-2" style="display:none">
 	<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
@@ -89,10 +96,11 @@
 					<td style="width: 24.66%">Title</td>
 					<td style="width: 20.66%">Description</td>
 					<td style="width: 10.66%">Type</td>
-					<td style="width: 10.66%">link</td>
+					<td style="width: 10.66%">Apply</td>
 				</tr>
 			</thead>
-			<tbody id="tableBody"></tbody>
+            <tbody id="tableBody"></tbody>
+        </table>
     </div>
 </div>
 	<script src="assets/javascript/app.js"></script> 
