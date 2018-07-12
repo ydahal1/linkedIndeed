@@ -20,7 +20,7 @@
 			</div>
 			<div class="collapse navbar-collapse" id="nav-bar">
 				<ul class="nav navbar-nav navbar-right">
-					<li>&nbsp;<button class="btn  btn-primary navButtons" id="home-button"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</button></li>
+					<li>&nbsp;<button class="btn  btn-primary navButtons" id="home-button" onclick="location.reload();"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</button></li>
 					<li>&nbsp;<button class="btn  btn-primary navButtons" id="login-button">
 					<script type="in/Login"></script></button></li>
 					<li>&nbsp;<button class="btn  btn-primary navButtons" id="logout">&nbsp;Logout&nbsp;&nbsp;</button></li>
@@ -42,7 +42,7 @@
 	<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
 		<div class="panel panel-body" id="user-image-div"><img id="user-image" src=""></div>
 	</div>
-	<div class="panel panel-body">
+	<div class="panel panel-body" id="user-input-panel">
 		<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 userinput">
 			<input class="form-control input-sm" id="preferedLocations" placeholder="location" type="text">
 		</div>

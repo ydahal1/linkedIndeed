@@ -8,6 +8,7 @@ var url_gitHub;
 var url_govt;
 var emailAddress;
 var uniqueKey;
+var isSaved;
 
 function start() {
     database = firebase.database();
@@ -53,8 +54,11 @@ function pullGitHubJobs() {
 
             counter = i;
             //   console.log(response);
-
-            displayInTable(datePosted, location, title, type, description, link);
+            if(isSaved == "true"){
+                displaySavedListingInTable(datePosted, location, title, type, description, link);
+            }else{
+                displayInTable(datePosted, location, title, type, description, link);
+            }
         }
     });
 }
@@ -81,7 +85,12 @@ function pullGovernmentJobs() {
             counter = i;
             //   console.log(response);
 
-            displayInTable(datePosted, location, title, type, description, link);
+            if(isSaved == "true"){
+                $("#user-input-panel").hide();
+                displaySavedListingInTable(datePosted, location, title, type, description, link);
+            }else{
+                displayInTable(datePosted, location, title, type, description, link);
+            }     
         }
     });
 }
@@ -100,6 +109,23 @@ function displayInTable(datePosted, location, title, type, description, link) {
         link + '</td><tr>');
     $("#tableBody").append(tablebody);
 }
+
+
+//Displays saved posting on table
+function displaySavedListingInTable(datePosted, location, title, type, description, link) {
+    var tablebody = $('<tr><td>' +
+        "<span class='glyphicon glyphicon-trash' id=" + jobId + "></span>" + '</td><td>' +
+        datePosted + '</td><td>' +
+        location + "</td><td class='CellWithComment'>" +
+        title +
+        "<span class='CellComment'>" + description + '</span></td><td>' +
+        'description </td><td>' +
+        type + '</td><td>' +
+        link + '</td><tr>');
+    $("#tableBody").append(tablebody);
+}
+
+
 
 // function to capture users prefered Locations
 function addUserInput() {
@@ -177,7 +203,7 @@ function saveThisListing() {
         //This will change format the string the way fire base likes. firebase does not take ., #, etc.
         uniqueKey = emailAddress.split('.').join('@');
        
-        database.ref("Accounts/" + uniqueKey + "/savedJobs/").push({
+        database.ref("Accounts/" + uniqueKey + "/savedJobs/" + savedJobId).set({
             jobId: savedJobId
         });  
         retrivingSavedItems();
@@ -238,6 +264,7 @@ function getProfileData() {
 }
 
 function notification() {
+    isSaved = "true";
     // console.log(userdata);
     uniqueKey = emailAddress.split('.').join('@');
     // console.log(uniqueKey);
@@ -276,23 +303,24 @@ function notification() {
                         }
                     }
 
-                    for (var i = 0; i < response.length; i++) {
-                        datePosted = response[i].start_date;
-                        var location = response[i].locations;
-                        var title = response[i].position_title;
-                        var description = response[i].organization_name;
-                        // console.log(description);
-                        var type = "FT";
-                        var link = response[i].url;
-                        // link = (link.split("URL:").pop());
-                        jobId = response[i].id;
-                        counter = i;
-                        //   console.log(response);
-                    }
+                    // for (var i = 0; i < response.length; i++) {
+                    //     datePosted = response[i].start_date;
+                    //     var location = response[i].locations;
+                    //     var title = response[i].position_title;
+                    //     var description = response[i].organization_name;
+                    //     // console.log(description);
+                    //     var type = "FT";
+                    //     var link = response[i].url;
+                    //     // link = (link.split("URL:").pop());
+                    //     jobId = response[i].id;
+                    //     counter = i;
+                    //     //   console.log(response);
+                    // }
                 });
             } else {
                 url_gitHub = "https://jobs.github.com/positions.json?search=" + savedJobId;
                 $("#tableBody").empty();
+                $("#user-input-panel").empty();
                 pullGitHubJobs();
             }
         });
@@ -302,6 +330,7 @@ function notification() {
 
 
 createUrl();
+
 
 $(document).ready(function() {
     // Event listiners listining to user input like skills, location and job type
