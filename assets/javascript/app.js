@@ -9,6 +9,17 @@ var url_govt;
 var emailAddress;
 var uniqueKey;
 var isSaved;
+var userLoggedIn;
+
+// createUrl();
+// alert(url_gitHub);
+// pullJobsForAllUsers();
+// displayPageForAllUsers(datePosted, location, title, type, description, link);
+
+// function pullJobsForAllUsers(){
+// pullGitHubJobs();
+// pullGovernmentJobs();
+// }
 
 function start() {
     database = firebase.database();
@@ -57,6 +68,8 @@ function pullGitHubJobs() {
             //   console.log(response);
             if(isSaved == "true"){
                 displaySavedListingInTable(datePosted, location, title, type, description, link);
+            // }else if(userLoggedIn == true){
+                // displayPageForAllUsers(datePosted, location, title, type, description, link);
             }else{
                 displayInTable(datePosted, location, title, type, description, link);
             }
@@ -86,19 +99,21 @@ function pullGovernmentJobs() {
             counter = i;
             //   console.log(response);
 
-        
+            // if(userLoggedIn == true){
+                // displayPageForAllUsers(datePosted, location, title, type, description, link);
+            // }else{
                 displayInTable(datePosted, location, title, type, description, link);
-             
+
+            // }
         }
     });
 }
 
 
-//Displays posting on table
+//Displays posting on table to logged users
 function displayInTable(datePosted, location, title, type, description, link) {
     var tablebody = $('<tr><td>' +
-        "<button class='btn btn-default btn-xs'><span class='glyphicon glyphicon-folder-open' id=" + 
-        jobId + "></span></button>" + '</td><td>' +
+        "<button class='btn btn-default btn-xs'><span class='glyphicon glyphicon-folder-open' id=" + jobId  + "></span></button>" + '</td><td>' +
         datePosted + '</td><td>' +
         location + "</td><td class='CellWithComment'>" +
         title +
@@ -110,7 +125,7 @@ function displayInTable(datePosted, location, title, type, description, link) {
 }
 
 
-//Displays saved posting on table
+//Displays saved posting on table retrived from breifcase
 function displaySavedListingInTable(datePosted, location, title, type, description, link) {
     var tablebody = $('<tr><td>' +
         "<button class='btn btn-default btn-xs'><span class='glyphicon glyphicon-trash' id=" + jobId + "></span></button>" + '</td><td>' +
@@ -125,6 +140,21 @@ function displaySavedListingInTable(datePosted, location, title, type, descripti
     $("#tableBody").append(tablebody);
 }
 
+// //Displays table for all users including unlogged users
+// function displayPageForAllUsers(datePosted, location, title, type, description, link){
+//     // tableBody-allusers
+//     var tablebody = $('<tr><td>' +
+//     datePosted + '</td><td>' +
+//     location + "</td><td class='CellWithComment'>" +
+//     title +
+//     "<span class='CellComment'>" + description + '</span></td><td>' +
+//     'description </td><td>' +
+//     type + '</td><td>' +
+//     link + '</td><tr>');
+
+// $("#tableBody-allusers").append(tablebody);
+
+// }
 
 
 // function to capture users prefered Locations
@@ -204,7 +234,7 @@ function saveThisListing() {
         uniqueKey = emailAddress.split('.').join('@');
        
         database.ref("Accounts/" + uniqueKey + "/savedJobs/" + savedJobId).set({
-            jobId: savedJobId
+            jobId: savedJobId,
         });  
     });
 
@@ -261,8 +291,10 @@ function getProfileData() {
     $("#briefcaseList").css("display", "inline");
     $("#loginList").css("display", "none");
     $("#page-2").css("display", "inline");
-    pullGitHubJobs();
+    // $("#page-2").css("display", "inline");
+    // pullGitHubJobs();
     // pullGovernmentJobs();
+    userLoggedIn = true;
 
     IN.API.Profile("me").fields("first-name", "last-name", "email-address", "picture-url",
         "summary", "specialties", "industry", "positions").result(function(data) {
@@ -283,8 +315,8 @@ function getProfileData() {
             var saved = Object.keys(data).length;
             $("#notification").html("&nbsp;" + saved);
         });
-        pullGovernmentJobs();
         pullGitHubJobs();
+        pullGovernmentJobs();
     }).error(function(data) {
         console.log(data);
     });
