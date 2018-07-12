@@ -24,8 +24,9 @@ function start() {
     }
 
     $("#logout").click(function(){
-        console.log("onclick");
         logout();
+      
+
     });
 
     IN.Event.on(IN, "auth", getProfileData);
@@ -249,6 +250,14 @@ function dispayUserInfo(name, imageUrl, emailAddress, industry, summary) {
 
 // Use the API call wrapper to request the member's basic profile data
 function getProfileData() {
+    console.log("now only logged .....")
+    $("#homeList").css("display", "inline");
+    $("#logOutList").css("display", "inline");
+    $("#briefcaseList").css("display", "inline");
+    $("#loginList").css("display", "none");
+
+    
+
     IN.API.Profile("me").fields("first-name", "last-name", "email-address", "picture-url",
         "summary", "specialties", "industry", "positions").result(function(data) {
         var userdata = data.values[0];
@@ -290,6 +299,8 @@ function notification() {
             console.log(savedJobId);
 
             if (savedJobId.slice(0, 7) == "usajobs") {
+                $("#user-input-panel").empty();
+
                 url_govt = "https://jobs.search.gov/jobs/search.json?query=&size=100";
                 console.log("this is govt job and the id is : " + savedJobId);
                 $("#tableBody").empty();

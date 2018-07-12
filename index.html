@@ -20,11 +20,11 @@
 			</div>
 			<div class="collapse navbar-collapse" id="nav-bar">
 				<ul class="nav navbar-nav navbar-right">
-					<li>&nbsp;<button class="btn  btn-primary navButtons" id="home-button" onclick="location.reload();"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</button></li>
-					<li>&nbsp;<button class="btn  btn-primary navButtons" id="login-button">
+					<li id="homeList" style="display:none">&nbsp;<button class="btn  btn-primary navButtons" id="home-button" onclick="location.reload();" hidden><span class="glyphicon glyphicon-home"></span>&nbsp;Home</button></li>
+					<li id="loginList">&nbsp;<button class="btn  btn-primary navButtons" id="login-button">
 					<script type="in/Login"></script></button></li>
-					<li>&nbsp;<button class="btn  btn-primary navButtons" id="logout">&nbsp;Logout&nbsp;&nbsp;</button></li>
-					<li>&nbsp;<button class="btn  btn-primary navButtons" id="briefcase" onclick="notification();"><span class="glyphicon glyphicon-briefcase"></span><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="notification"></span></b></button></li>
+					<li id="logOutList" style="display:none">&nbsp;<button class="btn  btn-primary navButtons" id="logout" hidden>&nbsp;Logout&nbsp;&nbsp;</button></li>
+					<li id="briefcaseList" style="display:none">&nbsp;<button class="btn  btn-primary navButtons" id="briefcase" onclick="notification();"><span class="glyphicon glyphicon-briefcase" ></span><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="notification"></span></b></button></li>
 				</ul>
 			</div>
 		</div>
@@ -74,8 +74,7 @@
 					<td style="width: 10.66%">link</td>
 				</tr>
 			</thead>
-			<table  class="table table-bordered table-hover" id="tableBody">
-		</table>
+			<tbody id="tableBody"></tbody>
 	</div>
 	<script src="assets/javascript/app.js"></script> 
 	<script src="https://platform.linkedin.com/in.js" type="text/javascript">
